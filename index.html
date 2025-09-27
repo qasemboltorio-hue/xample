@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Cute Chat</title>
 
-  
   <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap" rel="stylesheet">
 
   <style>
@@ -30,6 +29,7 @@
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+      font-family: 'Cherry Bomb One', cursive;
     }
 
     button:hover {
@@ -87,13 +87,9 @@
     const finalMessage = document.getElementById('finalMessage');
     const userReply = document.getElementById('userReply');
 
-    const finalResponses = [
-      "Ahh okay",
-      "Ahh sige",
-      "Ahh haha",
-      "Sheesh",
-      "Awww",
-      "Hmmmm",
+    const chillWords = [
+      "wala naman", "wala", "nakahiga", "nakaupo", "nakatayo",
+      "kumakain", "nanonood", "umiinom", "maliligo"
     ];
 
     hiButton.addEventListener('click', () => {
@@ -103,21 +99,32 @@
     });
 
     sendButton.addEventListener('click', () => {
-      if (userReply.value.trim() !== "") {
-        const randomIndex = Math.floor(Math.random() * finalResponses.length);
-        const selectedMessage = finalResponses[randomIndex];
+      const reply = userReply.value.trim().toLowerCase();
 
-        finalMessage.textContent = selectedMessage;
-        finalMessage.classList.remove('hidden');
+      let message = "ahh sige"; // default
 
-        
-        userReply.disabled = true;
-        sendButton.disabled = true;
-        sendButton.style.opacity = 0.5;
-        sendButton.style.cursor = "not-allowed";
+      if (reply.includes("miss kana")) {
+        message = "heh";
+      } else {
+        for (let word of chillWords) {
+          if (reply.includes(word)) {
+            message = "ay oki hehe";
+            break;
+          }
+        }
       }
+
+      finalMessage.textContent = message;
+      finalMessage.classList.remove('hidden');
+
+      // Disable after one reply
+      userReply.disabled = true;
+      sendButton.disabled = true;
+      sendButton.style.opacity = 0.5;
+      sendButton.style.cursor = "not-allowed";
     });
   </script>
 
 </body>
 </html>
+
